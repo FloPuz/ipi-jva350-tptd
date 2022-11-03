@@ -1,6 +1,6 @@
 package com.ipi.jva350.model;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -126,9 +126,9 @@ public final class Entreprise {
 
 
     public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
-        return d == null ? null
-                : d.getMonthValue() > 5 ? LocalDate.of(d.getMonthValue(), 6, 1)
-                : LocalDate.of(d.getYear() - 1, 6, 1);
+        return d == null ? null//Si d est �gal � null alors affecter la valeur null
+                : d.getMonthValue() > 5 ? LocalDate.of(d.getMonthValue(), 6, 1)//Sinon si le mois de d est apr�s mai
+                : LocalDate.of(d.getYear() - 1, 6, 1);//Sinon
     }
 
     public static boolean estJourFerie(LocalDate jour) {
@@ -143,7 +143,7 @@ public final class Entreprise {
 
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
         // à implémenter en TDD !
-        throw new NotImplementedException();
+        throw new RuntimeException();
     }
 
 }

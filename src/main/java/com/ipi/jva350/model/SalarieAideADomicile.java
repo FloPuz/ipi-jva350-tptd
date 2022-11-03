@@ -20,20 +20,24 @@ public class SalarieAideADomicile {
 
     private String nom;
 
-    public static List<DayOfWeek> joursHabituellementTravailles = new ArrayList<DayOfWeek>() {{
-        add(DayOfWeek.MONDAY);
-        add(DayOfWeek.TUESDAY);
-        add(DayOfWeek.WEDNESDAY);
-        add(DayOfWeek.THURSDAY);
-        add(DayOfWeek.FRIDAY);
-    }};
+    public static List<DayOfWeek> joursHabituellementTravailles = new ArrayList<DayOfWeek>();
+    
+    static {
+    	joursHabituellementTravailles.add(DayOfWeek.MONDAY);
+    	joursHabituellementTravailles.add(DayOfWeek.TUESDAY);
+    	joursHabituellementTravailles.add(DayOfWeek.WEDNESDAY);
+    	joursHabituellementTravailles.add(DayOfWeek.THURSDAY);
+    	joursHabituellementTravailles.add(DayOfWeek.FRIDAY);
+    };
+    
+    
     private LocalDate moisEnCours;
     private LocalDate moisDebutContrat;
 
     private double joursTravaillesAnneeN= 0;
     private double congesPayesAcquisAnneeN= 0;
 
-    /** en annÃ©e N sur l'acquis N-1 */
+    /** en année N sur l'acquis N-1 */
     @Convert(converter = LinkedHashSetStringConverter.class)
     @Column
     private LinkedHashSet<LocalDate> congesPayesPris = new LinkedHashSet<LocalDate>();
@@ -60,10 +64,10 @@ public class SalarieAideADomicile {
     }
 
     /**
-     * D'aprÃ¨s https://femme-de-menage.ooreka.fr/comprendre/conges-payes-femme-de-menage :
-     * Pour s'ouvrir des droits Ã  congÃ©s payÃ©s â€“ capitalisation de jours + prise et/ou paiement â€“ l'aide mÃ©nagÃ¨re doit avoir travaillÃ© pour le particulier employeur :
-     *     pendant au moins dix jours (pas forcÃ©ment de suite) ;
-     *     Ã  l'intÃ©rieur d'une pÃ©riode de temps â€“ dite de Â« rÃ©fÃ©rence Â» â€“ allant du 1er juin de l'annÃ©e N au 31 mai de l'annÃ©e N + 1.
+     * D'après https://femme-de-menage.ooreka.fr/comprendre/conges-payes-femme-de-menage :
+     * Pour s'ouvrir des droits à  congés payés â€“ capitalisation de jours + prise et/ou paiement â€“ l'aide ménagère doit avoir travaillé pour le particulier employeur :
+     *     pendant au moins dix jours (pas forcément de suite) ;
+     *     à  l'intérieur d'une période de temps â€“ dite de Â« référence Â» â€“ allant du 1er juin de l'année N au 31 mai de l'année N + 1.
      * @return
      */
     public boolean aLegalementDroitADesCongesPayes() {
@@ -73,7 +77,7 @@ public class SalarieAideADomicile {
     /**
      * @param dateDebut
      * @param dateFin
-     * @return les jours de congÃ© dÃ©comptÃ©s, ordonnÃ©s. Leur premier et dernier peuvent Ãªtre aprÃ¨s eux fournis.
+     * @return les jours de congé décomptés, ordonnés. Leur premier et dernier peuvent être après eux fournis.
      */
     public LinkedHashSet<LocalDate> calculeJoursDeCongeDecomptesPourPlage(LocalDate dateDebut, LocalDate dateFin) {
         LinkedHashSet<LocalDate> joursDeCongeDecomptes = new LinkedHashSet<>();
@@ -171,6 +175,7 @@ public class SalarieAideADomicile {
     public double getCongesPayesRestantAnneeNMoins1() {
         return this.congesPayesAcquisAnneeNMoins1 - this.getCongesPayesPrisAnneeNMoins1();
     }
+    
     /*
     public double getCongesPayesRestantAnneeNMoins1() {
         return congesPayesRestantAnneeNMoins1;
