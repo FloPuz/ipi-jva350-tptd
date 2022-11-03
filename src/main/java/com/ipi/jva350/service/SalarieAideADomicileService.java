@@ -100,16 +100,19 @@ public class SalarieAideADomicileService {
 	 * Calcule les jours de congés à décompter, et si valide (voir plus bas) les
 	 * décompte au salarié et le sauve en base de données
 	 * 
-	 * @param salarieAideADomicile TODO nom ?
+	 * @param salarieAideADomicile
+	 * TODO nom ?
 	 * @param jourDebut
-	 * @param jourFin              peut être dans l'année suivante mais uniquement
-	 *                             son premier jour
-	 * @throws SalarieException si pas de jour décompté, ou avant le mois en
-	 *                          cours, ou dans l'année suivante (hors l'exception
-	 *                          du premier jour pour résoudre le cas d'un samedi),
-	 *                          ou la nouvelle totalité des jours de congé pris
-	 *                          décomptés dépasse le nombre acquis en N-1 ou la
-	 *                          limite de l'entreprise
+	 * @param jourFin
+	 * @throws SalarieException
+	 *
+	 * peut être dans l'année suivante mais uniquement 	son premier jour
+	 * si pas de jour décompté, ou avant le mois en
+	 * cours, ou dans l'année suivante (hors l'exception
+	 * du premier jour pour résoudre le cas d'un samedi),
+	 * ou la nouvelle totalité des jours de congé pris
+	 * décomptés dépasse le nombre acquis en N-1 ou la
+	 * limite de l'entreprise
 	 */
 	public void ajouteConge(SalarieAideADomicile salarieAideADomicile, LocalDate jourDebut, LocalDate jourFin)
 			throws SalarieException {

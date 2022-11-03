@@ -37,7 +37,7 @@ public class SalarieAideADomicile {
     private double joursTravaillesAnneeN= 0;
     private double congesPayesAcquisAnneeN= 0;
 
-    /** en année N sur l'acquis N-1 */
+    /** en annï¿½e N sur l'acquis N-1 */
     @Convert(converter = LinkedHashSetStringConverter.class)
     @Column
     private LinkedHashSet<LocalDate> congesPayesPris = new LinkedHashSet<LocalDate>();
@@ -64,20 +64,20 @@ public class SalarieAideADomicile {
     }
 
     /**
-     * D'après https://femme-de-menage.ooreka.fr/comprendre/conges-payes-femme-de-menage :
-     * Pour s'ouvrir des droits à  congés payés â€“ capitalisation de jours + prise et/ou paiement â€“ l'aide ménagère doit avoir travaillé pour le particulier employeur :
-     *     pendant au moins dix jours (pas forcément de suite) ;
-     *     à  l'intérieur d'une période de temps â€“ dite de Â« référence Â» â€“ allant du 1er juin de l'année N au 31 mai de l'année N + 1.
+     * D'aprï¿½s https://femme-de-menage.ooreka.fr/comprendre/conges-payes-femme-de-menage :
+     * Pour s'ouvrir des droits ï¿½ congï¿½s payï¿½s â€“ capitalisation de jours + prise et/ou paiement â€“ l'aide mï¿½nagï¿½re doit avoir travaillï¿½ pour le particulier employeur :
+     *     pendant au moins dix jours (pas forcï¿½ment de suite) ;
+     *     ï¿½ l'intï¿½rieur d'une pï¿½riode de temps â€“ dite de Â« rï¿½fï¿½rence Â» â€“ allant du 1er juin de l'annï¿½e N au 31 mai de l'annï¿½e N + 1.
      * @return
      */
     public boolean aLegalementDroitADesCongesPayes() {
-        return this.getJoursTravaillesAnneeNMoins1() > 10;
+        return this.getJoursTravaillesAnneeNMoins1() >= 10;
     }
 
     /**
      * @param dateDebut
      * @param dateFin
-     * @return les jours de congé décomptés, ordonnés. Leur premier et dernier peuvent être après eux fournis.
+     * @return les jours de congï¿½ dï¿½comptï¿½s, ordonnï¿½s. Leur premier et dernier peuvent ï¿½tre aprï¿½s eux fournis.
      */
     public LinkedHashSet<LocalDate> calculeJoursDeCongeDecomptesPourPlage(LocalDate dateDebut, LocalDate dateFin) {
         LinkedHashSet<LocalDate> joursDeCongeDecomptes = new LinkedHashSet<>();

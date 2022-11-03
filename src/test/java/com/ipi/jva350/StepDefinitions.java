@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IsItFriday {
     static String isItFriday(String today) {
-        return "Nope";
+        return "Friday".equals(today) ? "TGIF" : "Nope";
     }
 }
 
@@ -15,9 +15,9 @@ public class StepDefinitions {
     private String today;
     private String actualAnswer;
 
-    @Given("today is Sunday")
-    public void today_is_Sunday() {
-        today = "Sunday";
+    @Given("today is {string}")
+    public void today_is(String today) {
+        this.today = today;
     }
 
     @When("I ask whether it's Friday yet")
@@ -29,5 +29,4 @@ public class StepDefinitions {
     public void i_should_be_told(String expectedAnswer) {
         assertEquals(expectedAnswer, actualAnswer);
     }
-
 }
