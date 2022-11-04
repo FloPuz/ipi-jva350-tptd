@@ -35,7 +35,8 @@
   - ajoutez dans le workflow Github la configuration de l'analyse Sonar Cloud du code
 - Rédigez **ci-dessous** une courte analyse du premier rapport produit par Sonar (métriques, état général...) :
 
-Le premier rapport Sonar indique...
+Le premier rapport Sonar indique... 27 problèmes dont un bug et 26 bout de code moche,
+ une couverture de 0% et 3,7% de duplications, il y a un bug mineur également et il n'a pas détecté de faille de sécurité 
 
 
 ### Tests unitaires

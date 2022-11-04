@@ -19,10 +19,14 @@ class SalarieAideADomicileTest {
     @Test
     void aLegalementDroitADesCongesPayesIsTrue()
     {
+        //Given :
         SalarieAideADomicile salarie = new SalarieAideADomicile();
-        //En ayant travaillé 10 jours débloque droit aux congés
         salarie.setJoursTravaillesAnneeNMoins1(10);
-        assertTrue(salarie.aLegalementDroitADesCongesPayes());
+        //When:
+        // travaillé 10 jours débloque droit aux congés
+        boolean res = salarie.aLegalementDroitADesCongesPayes();
+        //Then:
+        assertTrue(res);
     }
 
     /***
@@ -31,9 +35,13 @@ class SalarieAideADomicileTest {
     @Test
     void aLegalementDroitADesCongesPayesIsWrong()
     {
+        //Given
         SalarieAideADomicile salarie = new SalarieAideADomicile();
         salarie.setJoursTravaillesAnneeNMoins1(9);
-        Assertions.assertFalse(salarie.aLegalementDroitADesCongesPayes());
+        //When :
+        boolean res = salarie.aLegalementDroitADesCongesPayes();
+        //Then :
+        Assertions.assertFalse(res);
     }
 
     /***
@@ -42,9 +50,12 @@ class SalarieAideADomicileTest {
     @Test
     void aLegalementDroitADesCongesPayesIsNull()
     {
+        //Given:
         SalarieAideADomicile salarie = new SalarieAideADomicile();
-
-        Assertions.assertFalse(salarie.aLegalementDroitADesCongesPayes());
+        //When:Salarie Is NULL or Not Initialise
+        boolean res = salarie.aLegalementDroitADesCongesPayes();
+        //Then:
+        Assertions.assertFalse(res);
     }
 
 
