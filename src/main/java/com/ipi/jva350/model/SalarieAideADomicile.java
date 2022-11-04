@@ -116,7 +116,6 @@ public class SalarieAideADomicile {
     }
 
 
-
     public Long getId() {
         return id;
     }

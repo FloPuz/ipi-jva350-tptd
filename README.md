@@ -50,7 +50,7 @@ Questions :
 - Tests unitaires simples : Testez unitairement la méthode `SalarieAideADomicile.aDroitADesCongesPayes()` (pensez aux cas aux limites).
 - Tests paramétrés : Testez par une méthode de test paramétrée la méthode `SalarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage()`.
 - Tests avec mocks : Testez de manière mockée (sans dépendance à la base de données) la méthode `SalarieAideADomicileService.clotureMois()`.
-
+Test mocked à faire de son côté
 ### Tests d'intégration
 
 - Tests de repository : Testez la méthode `SalarieAideADomicileRepository.findByNom()`.
