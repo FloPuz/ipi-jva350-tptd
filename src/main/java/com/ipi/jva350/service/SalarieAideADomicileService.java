@@ -21,6 +21,7 @@ public class SalarieAideADomicileService {
 	private SalarieAideADomicileRepository salarieAideADomicileRepository;
 
 	public SalarieAideADomicileService() {
+		//Constructeur vide par défaut
 	}
 
 	/**
@@ -117,7 +118,7 @@ public class SalarieAideADomicileService {
 
 	public void ajouteConge(SalarieAideADomicile salarieAideADomicile, LocalDate jourDebut, LocalDate jourFin)
 			throws SalarieException, NullPointerException {
-		try {
+
 
 		if (!salarieAideADomicile.aLegalementDroitADesCongesPayes()) {
 			throw new SalarieException("N'a pas légalement droit à des congés payés !");
@@ -167,11 +168,6 @@ public class SalarieAideADomicileService {
 		salarieAideADomicile.setCongesPayesPrisAnneeNMoins1(nbCongesPayesPrisDecomptesAnneeN);
 
 		salarieAideADomicileRepository.save(salarieAideADomicile);
-		}
-		catch(NullPointerException e)
-		{
-			throw e;
-		}
 	}
 
 	/**
