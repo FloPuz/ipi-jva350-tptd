@@ -127,7 +127,7 @@ public final class Entreprise {
 
     public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
         return d == null ? null//Si d est �gal � null alors affecter la valeur null
-                : d.getMonthValue() > 5 ? LocalDate.of(d.getMonthValue(), 6, 1)//Sinon si le mois de d est apr�s mai
+                : d.getMonthValue() > 5 ? LocalDate.of(d.getYear(), 6, 1)//Sinon si le mois de d est apr�s mai
                 : LocalDate.of(d.getYear() - 1, 6, 1);//Sinon
     }
 

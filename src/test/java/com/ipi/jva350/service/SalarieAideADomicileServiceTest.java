@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,12 +61,43 @@ class SalarieAideADomicileServiceTest {
     }
 
 
-    @Test
-    void ajouteConge() {
-        SalarieAideADomicile salarie = new SalarieAideADomicile("test", LocalDate.of(2017,1,1),LocalDate.of(2022,11,1),
-                257,20,320,25,21);
+    @ParameterizedTest(name="Début : {0} - Fin : {1}")
+    @CsvSource({
+            "'Jeanne','2022-07-07','2022-07-22'",
+            "'Jean','2022-10-01','2022-10-25'",
+    })
+    void ajouteCongeIsTrueTest(String nom,LocalDate jourDebut, LocalDate jourFin) throws SalarieException {
+        SalarieAideADomicile salarie = new SalarieAideADomicile(nom, LocalDate.of(2017,1,1),LocalDate.of(2022,6,1),
+                257,20,320,25,2);
+        aideADomicileService.creerSalarieAideADomicile(salarie);
+        aideADomicileService.ajouteConge(salarie,jourDebut,jourFin);
+        int nbCongesAPrendre = salarie.calculeJoursDeCongeDecomptesPourPlage(jourDebut,jourFin).size();
+
+        assertEquals(salarie.getCongesPayesPris().size(),nbCongesAPrendre);
     }
 
+    @ParameterizedTest(name="TestCase de : {0} Début : {1} - Fin : {2}")
+    @CsvSource({
+/*         NOM    DebutContrat   EnCours  jourWn  cpAn  jourWn-1  cpAn-1  cpPn-1  DebutConges  FinConges  */
+            "'Jeanne','2017-01-01','2022-01-01',30,2,120,10,10,'2022-11-13','2022-11-13'",//Pas besoin de conges
+            "'Jean','2021-12-17','2022-01-01',8,0,9,10,10,'2022-10-01','2022-10-25'",//N'a pas légalement droit à des congés payés !
+            "'Hakim','2017-01-01','2022-10-30',350,20,120,10,10,'2022-10-01','2022-10-25'",//Pas possible de prendre de congé avant le mois en cours !
+            "'Vasthi','2017-01-01','2022-01-01',350,20,120,10,10,'2023-10-01','2023-10-25'",//Pas possible de prendre de congé dans l'année de congés suivante (hors le premier jour)
+            "'Monique','2017-01-01','2022-04-01',150,5,120,20,1,'2022-04-10','2022-05-05'",//dépassement des congés acquis en année N-1
+            "'Alex','2017-01-01','2022-01-01',250,5,350,25,1,'2022-04-10','2022-05-08'",//dépassent la limite des règles de l'entreprise
+    })
+    void ajouteCongeIsFalseTest(String nom,LocalDate debutContrat, LocalDate moisEnCours,
+                                double joursTravailesAnneeN, double congesPayesAcquisAnneeN, double joursTravaillesAnneeNMois1,
+                                double congesPayesAcquisAnneeNMoins1, double congesPayesPrisAnneeNMoins1,LocalDate jourDebut, LocalDate jourFin) throws SalarieException {
+        SalarieAideADomicile salarie = new SalarieAideADomicile(nom, debutContrat,moisEnCours,
+                                                                joursTravailesAnneeN,congesPayesAcquisAnneeN,joursTravaillesAnneeNMois1,
+                                                                congesPayesAcquisAnneeNMoins1,congesPayesPrisAnneeNMoins1);
+
+        aideADomicileService.creerSalarieAideADomicile(salarie);
+
+        SalarieException salarieException = assertThrows(SalarieException.class,()-> aideADomicileService.ajouteConge(salarie,jourDebut,jourFin));
+        System.out.print(salarieException.getMessage());
+    }
     @Test
     void clotureMoisTest() throws SalarieException {
         SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
