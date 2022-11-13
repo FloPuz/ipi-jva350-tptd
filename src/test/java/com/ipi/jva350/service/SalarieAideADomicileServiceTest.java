@@ -25,13 +25,17 @@ class SalarieAideADomicileServiceTest {
     @Autowired
     private SalarieAideADomicileRepository aideADomicileRepository;
 
-    @Test
-    void creerSalarieAideADomicile () throws SalarieException
+    @ParameterizedTest()
+    @CsvSource({
+            "nom",
+            "nomtest",
+    })
+    void creerSalarieAideADomicileTest(String nom) throws SalarieException
     {
-        SalarieAideADomicile salarie = new SalarieAideADomicile("test", LocalDate.of(2017,1,1),LocalDate.of(2022,11,1),
+        SalarieAideADomicile salarie = new SalarieAideADomicile(nom, LocalDate.of(2017,1,1),LocalDate.of(2022,11,1),
             257,20,320,25,21);
         aideADomicileService.creerSalarieAideADomicile(salarie);
-        assertEquals(aideADomicileRepository.findByNom("test"),salarie);
+        assertEquals(aideADomicileRepository.findByNom(nom),salarie);
     }
 
     @ParameterizedTest()
