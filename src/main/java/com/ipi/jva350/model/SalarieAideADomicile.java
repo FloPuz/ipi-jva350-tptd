@@ -79,6 +79,7 @@ public class SalarieAideADomicile {
      * @param dateFin
      * @return les jours de cong� d�compt�s, ordonn�s. Leur premier et dernier peuvent �tre apr�s eux fournis.
      */
+
     public LinkedHashSet<LocalDate> calculeJoursDeCongeDecomptesPourPlage(LocalDate dateDebut, LocalDate dateFin) {
         LinkedHashSet<LocalDate> joursDeCongeDecomptes = new LinkedHashSet<>();
 
