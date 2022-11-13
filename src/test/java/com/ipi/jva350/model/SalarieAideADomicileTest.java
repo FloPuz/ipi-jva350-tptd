@@ -90,7 +90,7 @@ class SalarieAideADomicileTest {
         int joursDecomptes = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebut,dateFin).size();
         //Then:
         //Sans les dimanches par rapport au calendrier il y a {expectedValue} jours de congés à payé
-        assertTrue(joursDecomptes == expectedValue);
+        assertEquals(joursDecomptes , expectedValue);
 
     }
 
@@ -106,7 +106,7 @@ class SalarieAideADomicileTest {
         int joursDecomptes = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebut,dateFin).size();
         //Then:
         //Sans les dimanches par rapport au calendrier il y a {expectedValue} jours de congés à payé
-        assertTrue(joursDecomptes == expectedValue);
+        assertEquals(joursDecomptes , expectedValue);
 
     }
     @ParameterizedTest(name = "jour {0}, expectedValue {1}")
