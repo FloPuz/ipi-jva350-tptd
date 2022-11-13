@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EntrepriseTest {
 
     private static Entreprise entreprise;
-
+/*ToDo
     @ParameterizedTest(name = "Date {0}, expectedValue {1}")
     @CsvSource({
             "''2022-02-01'',1",
@@ -35,22 +35,18 @@ class EntrepriseTest {
 
     @ParameterizedTest(name = "jour {0}, expectedValue {1}")
     @CsvSource({
-            "'2022-02-01',1",
-            "'',1",
-            "'',1",
+
     })
     void getPremierJourAnneeDeCongesTest() {
     }
 
     @ParameterizedTest(name = "jour {0}, expectedValue {1}")
     @CsvSource({
-            "'',1",
-            "'',1",
-            "'',1",
+
     })
     void estJourFerieTest() {
     }
-
+*/
 
     //Sans faire les test avant j'aurais surement crée directement une nouvelle class ExceptionEntreprise
     //J'aurais aussi surement prit moins de temps à réfléchir à si la date debut > fin
