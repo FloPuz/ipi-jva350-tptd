@@ -34,7 +34,7 @@ class SalarieAideADomicileServiceTest {
         assertEquals(aideADomicileRepository.findByNom("test"),salarie);
     }
 
-    @ParameterizedTest(name = "")
+    @ParameterizedTest()
     @CsvSource({
             "'2022-01-07',25,'2021-01-01','2022-01-07','2022-01-07'",
             "'2022-02-08',17,'2021-01-01','2022-10-01','2022-10-25'",
