@@ -115,7 +115,7 @@ public class SalarieAideADomicileService {
 	 * limite de l'entreprise
 	 */
 	public void ajouteConge(SalarieAideADomicile salarieAideADomicile, LocalDate jourDebut, LocalDate jourFin)
-			throws SalarieException {
+			throws SalarieException, NullPointerException {
 		if (!salarieAideADomicile.aLegalementDroitADesCongesPayes()) {
 			throw new SalarieException("N'a pas légalement droit à des congés payés !");
 		}
