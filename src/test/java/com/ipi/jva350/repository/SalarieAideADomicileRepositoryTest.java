@@ -23,9 +23,14 @@ class SalarieAideADomicileRepositoryTest {
         String nom = "test";
         SalarieAideADomicile salarie = new SalarieAideADomicile(nom, LocalDate.of(2017,1,1),LocalDate.of(2022,11,1),
                 257,20,320,25,21);
+        SalarieAideADomicile salarietest = new SalarieAideADomicile(nom, null,null,
+                0,0,0,0,0);
         salarieAideADomicileRepository.save(salarie);
+        salarieAideADomicileRepository.save(salarietest);
         SalarieAideADomicile toTest = salarieAideADomicileRepository.findByNom(nom);
+        SalarieAideADomicile toTestTest = salarieAideADomicileRepository.findByNom(nom);
         assertEquals(salarie,toTest);
+        assertEquals(salarietest,toTestTest);
     }
 
 
