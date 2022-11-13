@@ -2,6 +2,9 @@ package com.ipi.jva350.model;
 
 //import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import com.ipi.jva350.exception.EntrepriseException;
+import com.ipi.jva350.exception.SalarieException;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -141,9 +144,30 @@ public final class Entreprise {
         return monEntier != test;
     }
 
-    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
-        // à implémenter en TDD !
-        throw new RuntimeException();
+    /***
+     * Verifie que la date d se trouve entre la date debut et date fin
+     * @param d
+     * @param debut
+     * @param fin
+     * @return
+     */
+    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) throws EntrepriseException {
+
+        if ( fin.isBefore(debut))
+        {
+            throw new EntrepriseException("La date de debut est superieur à la date de fin");
+        }
+        if (d.isBefore(debut) || d.isAfter(fin))
+        {
+            return false;
+        } else if (d.compareTo(debut) >= 0 && d.compareTo(fin) <=0) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
 }
