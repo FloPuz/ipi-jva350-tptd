@@ -2,11 +2,14 @@ package com.ipi.jva350.model;
 
 import com.ipi.jva350.exception.EntrepriseException;
 import com.ipi.jva350.exception.SalarieException;
+
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,21 +35,62 @@ class EntrepriseTest {
     })
     void proportionPondereeDuMoisTest(LocalDate moisDuConge) {
     }
-
-    @ParameterizedTest(name = "jour {0}, expectedValue {1}")
-    @CsvSource({
-
-    })
-    void getPremierJourAnneeDeCongesTest() {
-    }
-
-    @ParameterizedTest(name = "jour {0}, expectedValue {1}")
-    @CsvSource({
-
-    })
-    void estJourFerieTest() {
-    }
 */
+    @ParameterizedTest(name = "jour {0}, expectedValue {1}")
+    @CsvSource({
+            "'2022-11-01'",
+            "'2022-11-11'",
+            "'2022-08-01'",
+            "'2022-06-01'",
+            "'2022-07-14'",
+            "'2022-12-25'",
+    })
+    void getPremierJourAnneeDeCongesEstCetteAnnéeTest(LocalDate date) {
+        LocalDate d = entreprise.getPremierJourAnneeDeConges(date);
+        assertEquals(d,LocalDate.of(d.getYear(), 6, 1));
+    }
+
+    @ParameterizedTest(name = "jour {0}, expectedValue {1}")
+    @CsvSource({
+            "'2022-11-01'",
+            "'2022-11-11'",
+            "'2022-08-01'",
+            "'2022-06-01'",
+            "'2022-07-14'",
+            "'2022-12-25'",
+    })
+    void getPremierJourAnneeDeCongesEstPasCetteAnnéeTest(LocalDate date) {
+        LocalDate d = entreprise.getPremierJourAnneeDeConges(date);
+        assertNotEquals(d,LocalDate.of(d.getYear()-1, 6, 1));
+    }
+
+    @ParameterizedTest(name = "jour {0} est férié")
+    @CsvSource({
+        "'2022-11-01'",
+        "'2022-11-11'",
+        "'2022-01-01'",
+        "'2022-05-01'",
+        "'2022-07-14'",
+        "'2022-12-25'",
+    })
+    void estJourFerieTest(LocalDate now) {
+        List<LocalDate>jours = entreprise.joursFeries(LocalDate.now());
+        assertTrue(jours.contains(now));
+    }
+
+    @ParameterizedTest(name = "jour {0} est férié")
+    @CsvSource({
+            "'2022-10-01'",
+            "'2022-12-11'",
+            "'2022-02-01'",
+            "'2022-05-02'",
+            "'2022-07-13'",
+            "'2022-12-28'",
+    })
+    void estPasJourFerieTest(LocalDate now) {
+        List<LocalDate>jours = entreprise.joursFeries(LocalDate.now());
+        assertFalse(jours.contains(now));
+    }
 
     //Sans faire les test avant j'aurais surement crée directement une nouvelle class ExceptionEntreprise
     //J'aurais aussi surement prit moins de temps à réfléchir à si la date debut > fin
