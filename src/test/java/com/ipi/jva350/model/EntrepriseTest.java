@@ -16,26 +16,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class EntrepriseTest {
 
     private static Entreprise entreprise;
-/*ToDo
+
+    /****
+     * Au vu de la méthode prenant en paramètre un mois, on test chaque option possible en vérifiant que la méthod retourne le même résultat que le calcul fournit
+     * @param moisDuConge
+     * @param expectedValue
+     */
     @ParameterizedTest(name = "Date {0}, expectedValue {1}")
     @CsvSource({
-            "''2022-02-01'',1",
-            "''2022-02-02'',1",
-            "''2022-02-03'',1",
-            "''2022-02-04'',1",
-            "''2022-02-04'',1",
-            "''2022-02-05'',1",
-            "''2022-02-06'',1",
-            "''2022-02-07'',1",
-            "''2022-02-08'',1",
-            "''2022-02-09'',1",
-            "''2022-02-10'',1",
-            "''2022-02-11'',1",
-            "''2022-02-12'',1",
+            "'2022-01-01',0.7333333333333333",
+            "'2022-02-02',0.8",
+            "'2022-03-03',0.8666666666666666",
+            "'2022-04-04',0.9333333333333333",
+            "'2022-05-04',1",
+            "'2022-06-05',0.06666666666666667",
+            "'2022-07-06',0.23333333333333334",
+            "'2022-08-07',0.4",
+            "'2022-09-08',0.4666666666666667",
+            "'2022-10-09',0.5333333333333333",
+            "'2022-11-10',0.6",
+            "'2022-12-11',0.6666666666666667",
     })
-    void proportionPondereeDuMoisTest(LocalDate moisDuConge) {
+    void proportionPondereeDuMoisTestEachMois(LocalDate moisDuConge, double expectedValue) {
+        assertEquals(entreprise.proportionPondereeDuMois(moisDuConge), expectedValue);
     }
-*/
+
     @ParameterizedTest(name = "jour {0}, expectedValue {1}")
     @CsvSource({
             "'2022-11-01'",

@@ -60,7 +60,29 @@ class SalarieAideADomicileServiceTest {
         assertTrue(result != 0);
     }
 
+    @ParameterizedTest()
+    @CsvSource({
+            "'2022-01-07',25,'2022-01-01','2022-07-07','2022-08-01','Lucia'",
+            "'2022-02-08',17,'2000-01-01','2022-10-01','2022-10-25','Lucas'",
+            "'2022-03-09',18,'2018-01-01','2022-10-01','2022-10-25','Lucinda'",
+            "'2022-04-10',12,'2021-01-01','2022-10-01','2022-10-25','Lucifer'",
+            "'2022-05-11',21,'2012-01-01','2022-10-01','2022-10-25','Lucienne'",
+            "'2022-06-18',7,'2020-06-01','2022-10-01','2022-10-25','Lucien'",
+            "'2022-07-12',15,'2004-01-01','2022-10-01','2022-10-25','Lucie'",
+            "'2022-08-13',20,'2014-03-01','2022-10-01','2022-10-25','Luc'",
 
+    })
+    //Par pur hasard tout ces salaries ont tous autant travaillés et cotisés de jours ainsi que posés des congés
+    void calculeLimiteEntrepriseCongesPermisIntegrationTest(LocalDate moisEnCours, double congesPayesAcquisAnneeNMoins1,
+                                                                LocalDate moisDebutContrat, LocalDate premierJourDeConge, LocalDate dernierJourDeConge, String nom) {
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile(nom,moisDebutContrat,moisEnCours,150,2,250,congesPayesAcquisAnneeNMoins1,25);
+        aideADomicileRepository.save(salarieAideADomicile);
+        SalarieAideADomicile salarieAideADomicileFromBdd = aideADomicileRepository.findByNom(salarieAideADomicile.getNom());
+        long result = aideADomicileService.calculeLimiteEntrepriseCongesPermis(moisEnCours,salarieAideADomicileFromBdd.getCongesPayesAcquisAnneeNMoins1(),salarieAideADomicileFromBdd.getMoisDebutContrat(),premierJourDeConge,dernierJourDeConge);
+        //Il me manque un expert du métier pour pouvoir m'aider dans le calcul complexe que représente cette methode, pour l'instant je n'ai pas le temps de me plonger dans le fonctionnel je verrais une fois les autres tests terminé
+        System.out.print(result);
+        assertTrue(result != 0);
+    }
     @ParameterizedTest(name="Début : {0} - Fin : {1}")
     @CsvSource({
             "'Jeanne','2022-07-07','2022-07-22'",
