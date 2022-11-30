@@ -1,9 +1,7 @@
 package com.ipi.jva350.model;
 
-//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import com.ipi.jva350.exception.EntrepriseException;
-import com.ipi.jva350.exception.SalarieException;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -75,17 +73,17 @@ public final class Entreprise {
 
     public static boolean bissextile(int y) {
         String tmp = String.valueOf(y);
+        boolean bool = false;
         if (tmp.charAt(2) == '1' || tmp.charAt(2) == '3' || tmp.charAt(2) == 5 || tmp.charAt(2) == '7' || tmp.charAt(2) == '9') {
-            if (tmp.charAt(3)=='2'||tmp.charAt(3)=='6') return true;
-            else
-                return false;
-        }else{
-            if (tmp.charAt(2) == '0' && tmp.charAt(3) == '0') {
-                return false;
+            if (tmp.charAt(3)=='2'||tmp.charAt(3)=='6') {
+                bool = true;
             }
-            if (tmp.charAt(3)=='0'||tmp.charAt(3)=='4'||tmp.charAt(3)=='8')return true;
+        }else{
+            if (tmp.charAt(3)=='0'||tmp.charAt(3)=='4'||tmp.charAt(3)=='8'){
+                bool = true;
+            }
         }
-        return false;
+        return bool;
     }
 
     public static double proportionPondereeDuMois(LocalDate moisDuConge) {
@@ -129,16 +127,23 @@ public final class Entreprise {
 
 
     public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
-        return d == null ? null//Si d est �gal � null alors affecter la valeur null
-                : d.getMonthValue() > 5 ? LocalDate.of(d.getYear(), 6, 1)//Sinon si le mois de d est apr�s mai
-                : LocalDate.of(d.getYear() - 1, 6, 1);//Sinon
+        //Si d est �gal � null alors affecter la valeur null
+        if (d == null) {
+            return null;
+        } else {//Sinon si le mois de d est apr�s mai
+            if (d.getMonthValue() > 5) return LocalDate.of(d.getYear(), 6, 1);
+            //sinon
+            return LocalDate.of(d.getYear() - 1, 6, 1);
+        }
+
+
     }
 
     public static boolean estJourFerie(LocalDate jour) {
         int monEntier = (int) Entreprise.joursFeries(jour).stream().filter(d ->
                 d.equals(jour)).count();
         int test = bissextile(jour.getYear()) ? 1 : 0;
-        if (test != 0 && !(monEntier > 1)) {
+        if (test != 0 && monEntier <= 1) {
             test--;
         }
         return monEntier != test;
@@ -152,21 +157,18 @@ public final class Entreprise {
      * @return
      */
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) throws EntrepriseException {
-
+        boolean bool = false;
         if ( fin.isBefore(debut))
         {
             throw new EntrepriseException("La date de debut est superieur à la date de fin");
         }
         if (d.isBefore(debut) || d.isAfter(fin))
         {
-            return false;
-        } else if (d.compareTo(debut) >= 0 && d.compareTo(fin) <=0) {
-            return true;
+            bool = d.isBefore(debut) || d.isAfter(fin);
+        } else {
+            bool = d.compareTo(debut) >= 0 && d.compareTo(fin) <=0;
         }
-        else
-        {
-            return false;
-        }
+        return bool;
 
     }
 

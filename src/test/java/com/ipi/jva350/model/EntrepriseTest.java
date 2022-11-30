@@ -1,15 +1,14 @@
 package com.ipi.jva350.model;
 
 import com.ipi.jva350.exception.EntrepriseException;
-import com.ipi.jva350.exception.SalarieException;
 
 
-import org.junit.jupiter.api.Test;
+
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,7 +49,7 @@ class EntrepriseTest {
             "'2022-07-14'",
             "'2022-12-25'",
     })
-    void getPremierJourAnneeDeCongesEstCetteAnnéeTest(LocalDate date) {
+    void getPremierJourAnneeDeCongesEstCetteAnneeTest(LocalDate date) {
         LocalDate d = entreprise.getPremierJourAnneeDeConges(date);
         assertEquals(d,LocalDate.of(d.getYear(), 6, 1));
     }
@@ -64,7 +63,7 @@ class EntrepriseTest {
             "'2022-07-14'",
             "'2022-12-25'",
     })
-    void getPremierJourAnneeDeCongesEstPasCetteAnnéeTest(LocalDate date) {
+    void getPremierJourAnneeDeCongesEstPasCetteAnneeTest(LocalDate date) {
         LocalDate d = entreprise.getPremierJourAnneeDeConges(date);
         assertNotEquals(d,LocalDate.of(d.getYear()-1, 6, 1));
     }
@@ -77,10 +76,39 @@ class EntrepriseTest {
         "'2022-05-01'",
         "'2022-07-14'",
         "'2022-12-25'",
+        "'2021-11-01'",
+        "'2021-11-11'",
+        "'2021-01-01'",
+        "'2021-05-01'",
+        "'2021-07-14'",
+        "'2021-12-25'",
+        "'2020-11-01'",
+        "'2020-11-11'",
+        "'2020-01-01'",
+        "'2020-05-01'",
+        "'2020-07-14'",
+        "'2020-12-25'",
+        "'2019-11-01'",
+        "'2019-11-11'",
+        "'2019-01-01'",
+        "'2019-05-01'",
+        "'2019-07-14'",
+        "'2019-12-25'",
+        "'2018-11-01'",
+        "'2018-11-11'",
+        "'2018-01-01'",
+        "'2018-05-01'",
+        "'2018-07-14'",
+        "'2018-12-25'",
+        "'2017-11-01'",
+        "'2017-11-11'",
+        "'2017-01-01'",
+        "'2017-05-01'",
+        "'2017-07-14'",
+        "'2017-12-25'",
     })
     void estJourFerieTest(LocalDate now) {
-        List<LocalDate>jours = entreprise.joursFeries(LocalDate.now());
-        assertTrue(jours.contains(now));
+        assertTrue(entreprise.estJourFerie(now));
     }
 
     @ParameterizedTest(name = "jour {0} est férié")
@@ -91,10 +119,39 @@ class EntrepriseTest {
             "'2022-05-02'",
             "'2022-07-13'",
             "'2022-12-28'",
+            "'2021-10-01'",
+            "'2021-12-11'",
+            "'2021-02-01'",
+            "'2021-05-02'",
+            "'2021-07-13'",
+            "'2021-12-28'",
+            "'2020-10-01'",
+            "'2020-12-11'",
+            "'2020-02-01'",
+            "'2020-05-02'",
+            "'2020-07-13'",
+            "'2020-12-28'",
+            "'2019-10-01'",
+            "'2019-12-11'",
+            "'2019-02-01'",
+            "'2019-05-02'",
+            "'2019-07-13'",
+            "'2019-12-28'",
+            "'2018-10-01'",
+            "'2018-12-11'",
+            "'2018-02-01'",
+            "'2018-05-02'",
+            "'2018-07-13'",
+            "'2018-12-28'",
+            "'2017-10-01'",
+            "'2017-12-11'",
+            "'2017-02-01'",
+            "'2017-05-02'",
+            "'2017-07-13'",
+            "'2017-12-28'",
     })
     void estPasJourFerieTest(LocalDate now) {
-        List<LocalDate>jours = entreprise.joursFeries(LocalDate.now());
-        assertFalse(jours.contains(now));
+        assertFalse(entreprise.estJourFerie(now));
     }
 
     //Sans faire les test avant j'aurais surement crée directement une nouvelle class ExceptionEntreprise
@@ -134,5 +191,6 @@ class EntrepriseTest {
     void estDansPlageWhenDebutBeforeFinThrowExceptionTest(LocalDate d, LocalDate debut, LocalDate fin) throws EntrepriseException {
         EntrepriseException exception = assertThrows(EntrepriseException.class,() -> entreprise.estDansPlage(d,debut,fin));
         System.out.print(exception.getMessage());
+        throw exception;
     }
 }
