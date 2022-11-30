@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.internal.matchers.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,7 +57,7 @@ class SalarieAideADomicileServiceTest {
         SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile(nom,moisDebutContrat,moisEnCours,150,2,250,congesPayesAcquisAnneeNMoins1,25);
         aideADomicileRepository.save(salarieAideADomicile);
         long result = aideADomicileService.calculeLimiteEntrepriseCongesPermis(moisEnCours,congesPayesAcquisAnneeNMoins1,moisDebutContrat,premierJourDeConge,dernierJourDeConge);
-        //Il me manque un expert du métier pour pouvoir m'aider dans le calcul complexe que représente cette methode, pour l'instant je n'ai pas le temps de me plonger dans le fonctionnel je verrais une fois les autres tests terminé
+        //Très dur de comprendre ce que cela retourne exactement donc on vérifie juste que ça retourne bien quelque chose
         assertTrue(result != 0);
     }
 
@@ -79,8 +80,7 @@ class SalarieAideADomicileServiceTest {
         aideADomicileRepository.save(salarieAideADomicile);
         SalarieAideADomicile salarieAideADomicileFromBdd = aideADomicileRepository.findByNom(salarieAideADomicile.getNom());
         long result = aideADomicileService.calculeLimiteEntrepriseCongesPermis(moisEnCours,salarieAideADomicileFromBdd.getCongesPayesAcquisAnneeNMoins1(),salarieAideADomicileFromBdd.getMoisDebutContrat(),premierJourDeConge,dernierJourDeConge);
-        //Il me manque un expert du métier pour pouvoir m'aider dans le calcul complexe que représente cette methode, pour l'instant je n'ai pas le temps de me plonger dans le fonctionnel je verrais une fois les autres tests terminé
-        System.out.print(result);
+        //Très dur de comprendre ce que cela retourne exactement donc on vérifie juste que ça retourne bien quelque chose
         assertTrue(result != 0);
     }
     @ParameterizedTest(name="Début : {0} - Fin : {1}")
@@ -119,7 +119,9 @@ class SalarieAideADomicileServiceTest {
 
         SalarieException salarieException = assertThrows(SalarieException.class,()-> aideADomicileService.ajouteConge(salarie,jourDebut,jourFin));
         System.out.print(salarieException.getMessage());
+
     }
+
     @Test
     void clotureMoisTest() throws SalarieException {
         SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
