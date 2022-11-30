@@ -120,3 +120,8 @@ fichier ne dépasse pas 1 MO.
 - Rédigez **ci-dessous** une courte analyse du rapport produit par Sonar (métriques, évolution, état général...) :
 
 Le rapport Sonar final indique...
+
+
+![image](https://user-images.githubusercontent.com/28755793/204863594-6356f6ec-dfa9-4097-9946-c68e36dd298d.png)
+
+PROJET Réalisé par Théo GAILLARD & Florent PUZENAT en pair programming sur un seul poste
