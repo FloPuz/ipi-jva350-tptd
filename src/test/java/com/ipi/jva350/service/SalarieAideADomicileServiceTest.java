@@ -134,7 +134,4 @@ class SalarieAideADomicileServiceTest {
         assertEquals(21,salarieAideADomicile.getJoursTravaillesAnneeN());
     }
 
-    @Test
-    void clotureAnnee() {
-    }
 }
