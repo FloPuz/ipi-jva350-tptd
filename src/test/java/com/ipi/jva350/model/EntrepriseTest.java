@@ -155,7 +155,6 @@ class EntrepriseTest {
     }
 
     //Sans faire les test avant j'aurais surement crée directement une nouvelle class ExceptionEntreprise
-    //J'aurais aussi surement prit moins de temps à réfléchir à si la date debut > fin
     @ParameterizedTest(name = "jour {0} compris entre {1} et {2}")
     @CsvSource({
             "'2022-01-01','2022-01-01','2022-03-01'",
@@ -181,7 +180,7 @@ class EntrepriseTest {
         assertFalse(entreprise.estDansPlage(d,debut,fin));
     }
 
-    @ParameterizedTest(name = "jour {0} pas compris entre {1} et {2}")
+    @ParameterizedTest(name = "date :  {1}   avant la date :  {2}")
     @CsvSource({
             "'2022-01-01','2022-02-02','2022-01-01'",
             "'2023-03-01','2023-02-02','2022-01-01'",
@@ -191,6 +190,5 @@ class EntrepriseTest {
     void estDansPlageWhenDebutBeforeFinThrowExceptionTest(LocalDate d, LocalDate debut, LocalDate fin) throws EntrepriseException {
         EntrepriseException exception = assertThrows(EntrepriseException.class,() -> entreprise.estDansPlage(d,debut,fin));
         System.out.print(exception.getMessage());
-        throw exception;
     }
 }

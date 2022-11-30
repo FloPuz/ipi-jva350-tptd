@@ -164,12 +164,10 @@ public final class Entreprise {
         }
         if (d.isBefore(debut) || d.isAfter(fin))
         {
-            bool = d.isBefore(debut) || d.isAfter(fin);
+            return false;
         } else {
-            bool = d.compareTo(debut) >= 0 && d.compareTo(fin) <=0;
+            return true;
         }
-        return bool;
-
     }
 
 }
